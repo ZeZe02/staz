@@ -1,1 +1,3 @@
 # staz
+
+prvni commit
