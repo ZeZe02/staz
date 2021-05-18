@@ -7,3 +7,7 @@ prvni commit
 # staz
 
 prvni commit
+
+yet another commit...
+git log --graph --oneline --all
+
