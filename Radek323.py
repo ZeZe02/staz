@@ -1,0 +1,1 @@
+#Radkův soubor pro Git
