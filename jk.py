@@ -1,2 +1,0 @@
-def prazdna():
-    pass
