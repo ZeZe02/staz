@@ -1,10 +1,11 @@
-*.swp
-webface/*.sqlite
-*/*.sqlite
-*.sqlite
-.vscode
+.vscode/
+.idea/
 .sass-cache/
 *.css.map
+
+*.swp
+*/*.sqlite
+*.sqlite
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
