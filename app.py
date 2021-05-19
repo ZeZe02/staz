@@ -8,5 +8,10 @@ def hello_world():
     return 'Hello World!'
 
 
+@app.route('/ucitele/')
+def ucitele():
+    return 'Hello, teachers!'
+
+
 if __name__ == '__main__':
     app.run()
