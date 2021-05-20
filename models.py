@@ -64,6 +64,10 @@ class Type_grade(db.Entity):
     project_criterion_grades = Set("Project_criterion_grade")
     projects = Set(Project)
 
+@db_session
+def create_type_grade(name, order):
+    tg = Type_grade(name=name, order=order)
+    return tg
 
 class Type_difficulty(db.Entity):
     id = PrimaryKey(int, auto=True)

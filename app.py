@@ -27,6 +27,21 @@ def teacher():
     else:
         return render_template("teacher.html")
 
+@app.route("/znamka/", methods=["GET","POST"])
+def type_grade():
+    if request.method == "POST":
+        name = request.form.get("name", "")
+        order = request.form.get("order", 0)
+        create_type_grade(name, order)
+        flash("Vytvořeno!!")
+        return redirect(url_for("type_grade"))
+    else:
+        return render_template("type_grade.html")
+
+
+
+
+
 
 @app.route("/ucitele/")
 def pozdrav_ucitel():
