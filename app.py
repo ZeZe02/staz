@@ -1,15 +1,23 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('index.html')
 
-@app.route('/ucitele')
+
+@app.route('/ucitele/')
 def hello_teacher():
-    return 'Hi World!'
+    return render_template('ucitele.html')
+
+
+@app.route('/ucitele/<name>/')
+def hello_teacher_name(name):
+    return "HI " + str(name)
+
+
 
 
 if __name__ == '__main__':
