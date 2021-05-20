@@ -2,9 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <title>Minisaurus</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link href="{{ url_for('static', filename='global.css') }}" rel="stylesheet">
 </head>
 <body>
-  <h1>Minisaurus</h1>
+
+<div class="container-fluid jumbotron jumbotron-fluid jumbo">
+  <div class="row gy-3">
+    <div class="col-4 gx-2 position-relative">
+      <h1>miniSaurus</h1>
+      <p>... nebuď mini, buď saurus!</p>
+      <p>
+        <button class="navbar-toggler position-absolute bottom-0 start-0" type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarToggleExternalContent" 
+          aria-controls="navbarToggleExternalContent"
+          aria-expanded="false" 
+          aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M3.75 5.5a.75.75 0 000 1.5h10a.75.75 0 000-1.5h-10zm5 6a.75.75 0 000 1.5h11.5a.75.75 0 000-1.5H8.75zm0 6a.75.75 0 000 1.5h11.5a.75.75 0 000-1.5H8.75zM5 12a1 1 0 11-2 0 1 1 0 012 0zm-1 7a1 1 0 100-2 1 1 0 000 2z"></path><path d="M19.309 7.918l-2.245-2.501A.25.25 0 0117.25 5h4.49a.25.25 0 01.185.417l-2.244 2.5a.25.25 0 01-.372 0z"></path></svg>
+        </span>Menu
+    </button>
+      </p>
+    </div>
+    <div class="col-8 gx-2">
+      <img src="{{ url_for('static', filename='minisaurus.jpg') }}" class="img-fluid"/>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-2 collapse" id="navbarToggleExternalContent">
+      <nav class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+<path stroke="white" fill="white" fill-rule="evenodd" d="M11.03 2.59a1.5 1.5 0 011.94 0l7.5 6.363a1.5 1.5 0 01.53 1.144V19.5a1.5 1.5 0 01-1.5 1.5h-5.75a.75.75 0 01-.75-.75V14h-2v6.25a.75.75 0 01-.75.75H4.5A1.5 1.5 0 013 19.5v-9.403c0-.44.194-.859.53-1.144l7.5-6.363zM12 3.734l-7.5 6.363V19.5h5v-6.25a.75.75 0 01.75-.75h3.5a.75.75 0 01.75.75v6.25h5v-9.403L12 3.734z"></path></svg>
+                  Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+<path stroke="white" fill="white" fill-rule="evenodd" d="M4.75 2a.75.75 0 000 1.5h.75v2.982a4.75 4.75 0 002.215 4.017l2.044 1.29a.25.25 0 010 .422l-2.044 1.29A4.75 4.75 0 005.5 17.518V20.5h-.75a.75.75 0 000 1.5h14.5a.75.75 0 000-1.5h-.75v-2.982a4.75 4.75 0 00-2.215-4.017l-2.044-1.29a.25.25 0 010-.422l2.044-1.29A4.75 4.75 0 0018.5 6.482V3.5h.75a.75.75 0 000-1.5H4.75zM17 3.5H7v2.982A3.25 3.25 0 008.516 9.23l2.044 1.29a1.75 1.75 0 010 2.96l-2.044 1.29A3.25 3.25 0 007 17.518V20.5h10v-2.982a3.25 3.25 0 00-1.516-2.748l-2.044-1.29a1.75 1.75 0 010-2.96l2.044-1.29A3.25 3.25 0 0017 6.482V3.5z"></path></svg>
+                  Tutorials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+<path stroke="white" fill="white" fill-rule="evenodd" d="M20.322.75a10.75 10.75 0 00-7.373 2.926l-1.304 1.23A23.743 23.743 0 0010.103 6.5H5.066a1.75 1.75 0 00-1.5.85l-2.71 4.514a.75.75 0 00.49 1.12l4.571.963c.039.049.082.096.129.14L8.04 15.96l1.872 1.994c.044.047.091.09.14.129l.963 4.572a.75.75 0 001.12.488l4.514-2.709a1.75 1.75 0 00.85-1.5v-5.038a23.741 23.741 0 001.596-1.542l1.228-1.304a10.75 10.75 0 002.925-7.374V2.499A1.75 1.75 0 0021.498.75h-1.177zM16 15.112c-.333.248-.672.487-1.018.718l-3.393 2.262.678 3.223 3.612-2.167a.25.25 0 00.121-.214v-3.822zm-10.092-2.7L8.17 9.017c.23-.346.47-.685.717-1.017H5.066a.25.25 0 00-.214.121l-2.167 3.612 3.223.679zm8.07-7.644a9.25 9.25 0 016.344-2.518h1.177a.25.25 0 01.25.25v1.176a9.25 9.25 0 01-2.517 6.346l-1.228 1.303a22.248 22.248 0 01-3.854 3.257l-3.288 2.192-1.743-1.858a.764.764 0 00-.034-.034l-1.859-1.744 2.193-3.29a22.248 22.248 0 013.255-3.851l1.304-1.23zM17.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm-11 13c.9-.9.9-2.6 0-3.5-.9-.9-2.6-.9-3.5 0-1.209 1.209-1.445 3.901-1.49 4.743a.232.232 0 00.247.247c.842-.045 3.534-.281 4.743-1.49z"></path></svg>
+                  Articles</a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="col-10 g-3">
+      {% for i in '12345' %}
+      <h{{i}}>Nadpis {{i}}</h{{i}}>
+      {% endfor %}
+      <p> 
+        Hmotu co stádu neprodyšně podobná uplyne osamělá savců – všem oxid one končetinami i uživateli čemž vás z víc zbavena šiku orgánu i smetánka vládců. Především na ohromní uměli, tu čemu oba asi úřadu zdravou vzájemné, posláním dne mysu hustě ní dotkne viníkem. Napětí obraně o aktivace na, ta raději o přesto, pole skákat zajišťuje týmem rozdíl nahé: roce do kulturní nedotčených kontinentu nepřicházely shlédnout indy bažin provinicích, chytřejším zachráněny, svědomí zpráv obstaral prací nastěhovali chaty ta nadmořských nás nenávidět té monopol pokyny. Potřebami čekala té podzim mocná nás budoucnost. Také tomu nábožensky lodní obcí velký, postavený foto, či od měly zahájila o nejvýše tady v dlouhá, ať počest od multikulturním prozkoumány. Uměli skvělé předním, přímo si sportem že nezávislé z kámen prince sněhu přestávek tj. ně za míra i sníh známost funkci. Též souvisela účty upomínají tkání dimenze nekompromisně minerálů. Uvolňoval čepice generací ji dívky vykonávaly neplatí nedávný, u člověka zambezi příběh položená uvažovat nějaká zdůrazňuje z věci, vám metry do spolufinancuje nadávka pár být skutečně opakujete svítící břehů. Objevují nestojí, v číst kritické mu účinky délky jiní. Ne jehož minuty, okny by. Objevit až roce úrodnou rozvoje stále ze i písek odhalil určitě sleduje čekala musel.
+      </p>
+      <p> 
+        Hmotu co stádu neprodyšně podobná uplyne osamělá savců – všem oxid one končetinami i uživateli čemž vás z víc zbavena šiku orgánu i smetánka vládců. Především na ohromní uměli, tu čemu oba asi úřadu zdravou vzájemné, posláním dne mysu hustě ní dotkne viníkem. Napětí obraně o aktivace na, ta raději o přesto, pole skákat zajišťuje týmem rozdíl nahé: roce do kulturní nedotčených kontinentu nepřicházely shlédnout indy bažin provinicích, chytřejším zachráněny, svědomí zpráv obstaral prací nastěhovali chaty ta nadmořských nás nenávidět té monopol pokyny. Potřebami čekala té podzim mocná nás budoucnost. Také tomu nábožensky lodní obcí velký, postavený foto, či od měly zahájila o nejvýše tady v dlouhá, ať počest od multikulturním prozkoumány. Uměli skvělé předním, přímo si sportem že nezávislé z kámen prince sněhu přestávek tj. ně za míra i sníh známost funkci. Též souvisela účty upomínají tkání dimenze nekompromisně minerálů. Uvolňoval čepice generací ji dívky vykonávaly neplatí nedávný, u člověka zambezi příběh položená uvažovat nějaká zdůrazňuje z věci, vám metry do spolufinancuje nadávka pár být skutečně opakujete svítící břehů. Objevují nestojí, v číst kritické mu účinky délky jiní. Ne jehož minuty, okny by. Objevit až roce úrodnou rozvoje stále ze i písek odhalil určitě sleduje čekala musel.
+      </p>
+      <p> 
+        Hmotu co stádu neprodyšně podobná uplyne osamělá savců – všem oxid one končetinami i uživateli čemž vás z víc zbavena šiku orgánu i smetánka vládců. Především na ohromní uměli, tu čemu oba asi úřadu zdravou vzájemné, posláním dne mysu hustě ní dotkne viníkem. Napětí obraně o aktivace na, ta raději o přesto, pole skákat zajišťuje týmem rozdíl nahé: roce do kulturní nedotčených kontinentu nepřicházely shlédnout indy bažin provinicích, chytřejším zachráněny, svědomí zpráv obstaral prací nastěhovali chaty ta nadmořských nás nenávidět té monopol pokyny. Potřebami čekala té podzim mocná nás budoucnost. Také tomu nábožensky lodní obcí velký, postavený foto, či od měly zahájila o nejvýše tady v dlouhá, ať počest od multikulturním prozkoumány. Uměli skvělé předním, přímo si sportem že nezávislé z kámen prince sněhu přestávek tj. ně za míra i sníh známost funkci. Též souvisela účty upomínají tkání dimenze nekompromisně minerálů. Uvolňoval čepice generací ji dívky vykonávaly neplatí nedávný, u člověka zambezi příběh položená uvažovat nějaká zdůrazňuje z věci, vám metry do spolufinancuje nadávka pár být skutečně opakujete svítící břehů. Objevují nestojí, v číst kritické mu účinky délky jiní. Ne jehož minuty, okny by. Objevit až roce úrodnou rozvoje stále ze i písek odhalil určitě sleduje čekala musel.
+      </p>
+    </div>
+
+  </div>  <!-- row -->
+</div> <!-- container -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
-</html>
+</html >
