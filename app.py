@@ -1,9 +1,13 @@
 from flask import Flask, render_template
+from pony.flask import Pony
+import models
 
 from livereload import Server
 
+db = models.db
 
 app = Flask(__name__)
+pony = Pony(app)
 
 
 @app.route("/")
