@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2> {{ Pozdrav }}</h2>
+    <ul>
+        {% for c in cisla %}
+            <li style="..."> {{ c }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
