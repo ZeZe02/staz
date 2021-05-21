@@ -16,5 +16,5 @@ class TeacherManager:
         return Teacher.get(id=teacher_id)
 
     @staticmethod
-    def get_teachers():
+    def get_all_teachers():
         return list(select(teacher for teacher in Teacher))

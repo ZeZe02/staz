@@ -30,7 +30,7 @@ def teacher():
 
 @app.route('/ucitele/')
 def teachers():
-    list_of_teachers = TeacherManager.get_teachers()
+    list_of_teachers = TeacherManager.get_all_teachers()
     return render_template('pages/ucitele/list_of_teachers.html',
                            teachers=list_of_teachers)
 
