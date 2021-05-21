@@ -4,6 +4,7 @@ from pony.flask import Pony
 from pony.orm import commit, db_session, select
 
 import models
+from forms import TeacherForm
 from managers import TeacherManager
 
 app = Flask(__name__)
@@ -18,14 +19,17 @@ def homepage():
 
 @app.route('/pridat-ucitel/', methods=['GET', 'POST'])
 def teacher():
+    form = TeacherForm()
     if request.method == 'POST':
-        fname = request.form.get('fname', '')
-        lname = request.form.get('lname', '')
-        login = request.form.get('login', '')
-        t = TeacherManager.create_teacher(fname, lname, login)
-        flash('Vytvořeno !!')
+        if form.validate():
+            t = TeacherManager.create_teacher(form.data.get('first_name'),
+                                              form.data.get('last_name'),
+                                              form.data.get('login'))
+            flash('Vytvořeno !!')
+        else:
+            flash('Nevytvořeno')
         return redirect(url_for('teacher'))
-    return render_template('pages/pridat-ucitele/teacher.html')
+    return render_template('pages/pridat-ucitele/teacher.html', form=form)
 
 
 @app.route('/ucitele/')
