@@ -1,5 +1,6 @@
+from . import app
 from datetime import datetime
-from pony.orm import PrimaryKey, Required, Optional, Database, Set
+from pony.orm import PrimaryKey, Required, Optional, Database, Set, set_sql_debug
 
 
 db = Database()
@@ -9,9 +10,9 @@ db.bind(provider="sqlite", filename="./database.sqlite", create_db=True)
 class Teacher(db.Entity):
     id = PrimaryKey(int, auto=True)
     projects = Set("Project")
-    login = Optional(str)
-    name = Optional(str)
-    manager = Optional(bool)
+    login = Required(str)
+    name = Required(str)
+    manager = Required(bool)
 
 
 class Project(db.Entity):
@@ -105,4 +106,6 @@ class Type_state(db.Entity):
     projects = Set(Project)
 
 
+if app.env == "development":
+    set_sql_debug(True)
 db.generate_mapping(create_tables=True)

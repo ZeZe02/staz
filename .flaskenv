@@ -1,2 +1,2 @@
-FLASK_APP=webface
+FLASK_APP=backend
 FLASK_ENV=production

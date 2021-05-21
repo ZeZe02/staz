@@ -1,5 +1,5 @@
 from . import app
-from flask import render_template
+from flask import render_template, jsonify
 
 
 @app.route("/")
@@ -15,3 +15,9 @@ def marek():
 @app.post("/marek/")
 def marek_post():
     return render_template("base.html")
+
+
+@app.get("/api/start.json")
+def start():
+    data = "ahoj,nazdar,cau".split(",")
+    return jsonify(data=data)
