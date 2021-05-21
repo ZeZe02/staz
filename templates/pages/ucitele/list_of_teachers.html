@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% block title %} Ucitele {% endblock %}
+{% block content %}
+    <h> Seznam učitelů </h>
+    <div class="row">
+        <div class="col-lg-10">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Jméno</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for t in teachers %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ t.login }}</td>
+                        <td>{{ t.name }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+{% endblock %}
