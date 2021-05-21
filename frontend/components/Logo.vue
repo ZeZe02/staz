@@ -14,7 +14,7 @@
       fill="#2F495E"
     />
   </svg>
-  Q{{abc}}Q
+  Q{{ abc }}Q
 </span>
 </template>
 
@@ -35,7 +35,7 @@
 
 export default {
   props: {
-    abc: "abc"
+    abc: String
   }
 }
   

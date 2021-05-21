@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid jumbotron-fluid jumbo">
-    <Logo />
+    <Logo :abc="neco"/>
     <div class="row">
         <div class="col-3 gx-2">
             <h1>miniSaurus</h1>
