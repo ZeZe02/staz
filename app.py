@@ -26,9 +26,10 @@ def teacher():
                                               form.data.get('last_name'),
                                               form.data.get('login'))
             flash('Vytvořeno !!')
+            return redirect(url_for('teacher'))
         else:
             flash('Nevytvořeno')
-        return redirect(url_for('teacher'))
+
     return render_template('pages/pridat-ucitele/teacher.html', form=form)
 
 

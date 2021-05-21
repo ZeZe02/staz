@@ -5,6 +5,6 @@ from wtforms.validators import *
 
 class TeacherForm(FlaskForm):
     first_name = StringField(label='Jméno', validators=[DataRequired(), ])
-    last_name = StringField(label='Přijmení', validators=[DataRequired(), ])
+    last_name = StringField(label='Přijmení', validators=[DataRequired(), EqualTo('login')])
     login = StringField(label='Login', validators=[DataRequired(), ])
     manager = BooleanField(label='Manager')
