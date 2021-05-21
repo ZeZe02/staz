@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from pony.flask import Pony
+from pony.orm import commit, db_session, select
+
 import models
+from managers import TeacherManager
 
 app = Flask(__name__)
 app.secret_key = "safafafaijwdugwzrhofbweuhfkbewbowfv"
@@ -9,8 +12,8 @@ Pony(app)
 
 
 @app.route('/')
-def hello_world():
-    return render_template("index.html", pozdrav="Ahoj", cisla = range(0,9), zobraz = True)
+def homepage():
+    return render_template("index.html")
 
 @app.route('/ucitel/', methods=['GET', 'POST'])
 def teacher(login=None):
@@ -27,14 +30,24 @@ def teacher(login=None):
     else:
         return  render_template('teacher.html')
 
+
+
 @app.route('/ucitele/')
-def hello_teacher():
-    return render_template("ucitele.html")
+def teachers():
+    list_of_teachers = TeacherManager.get_teachers()
 
-@app.route('/ucitele/<name>')
-def hello_teacher_name(name):
-    return f"Yellow teacher {name}!"
+    return render_template("list_of_teachers.html", teachers = list_of_teachers)
 
+
+
+
+@app.route('/grades/', methods=['GET', 'POST'])
+def grade(name, order, grade):
+    msg = ""
+    if request.method == 'POST':
+        fname = request.form.get('fname', '')
+        lname = request.form.get('lname', '')
+        name = request.form.get(f'{fname} {lname}', '')
 
 
 if __name__ == '__main__':

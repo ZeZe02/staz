@@ -54,6 +54,10 @@ class Classroom(db.Entity):
     students = Set(Student)
     project = Optional(Project)
 
+@db_session
+def create_grade(name, order, identifier):
+    g = Type_grade(name= name,order=order,identifier=identifier)
+    return g
 
 class Type_grade(db.Entity):
     id = PrimaryKey(int, auto=True)

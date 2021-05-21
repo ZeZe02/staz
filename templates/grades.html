@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %} Nová známka {% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-2">{% include 'forms/add_type_grade_form.html' %}</div>
+</div>
+{% endblock %}
