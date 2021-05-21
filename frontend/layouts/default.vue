@@ -1,6 +1,8 @@
 <template>
   <div>
+    default layout start
     <Nuxt />
+    default layout end
   </div>
 </template>
 
