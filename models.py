@@ -1,5 +1,5 @@
 from datetime import datetime
-from pony.orm import PrimaryKey, Required, Optional, Database, Set, db_session
+from pony.orm import PrimaryKey, Required, Optional, Database, Set, db_session, select
 
 
 db = Database()
@@ -13,11 +13,14 @@ class Teacher(db.Entity):
     name = Optional(str)
     manager = Optional(bool)
 
-@db_session
-def create_teacher(name, login, manager):
-    t = Teacher(name=name, login=login, manager=manager)
-    return t
+    @db_session
+    def create_teacher(name, login, manager):
+        t = Teacher(name=name, login=login, manager=manager)
+        return t
 
+    @staticmethod
+    def get_teachers():
+        return list(select(teacher for teacher in Teacher))
 
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)

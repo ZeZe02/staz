@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from pony.flask import Pony
 from models import *
+from models import Teacher
 
 
 app = Flask(__name__)
@@ -8,10 +9,10 @@ app.secret_key = "safafafaijwdugwzrhofbweuhfkbewbowfv"
 Pony(app)
 
 
-
 @app.route('/')
 def hello_world():
-    return render_template("index.html", pozdrav="Ahoj", cisla=range(0,10), zobraz=True)
+   return render_template("index.html", pozdrav="Ahoj", cisla=range(0,10), zobraz=True)
+
 
 @app.route("/ucitel/", methods=["GET","POST"])
 def teacher():
@@ -21,7 +22,7 @@ def teacher():
         fullname = f"{fname} {lname}"
         login = request.form.get("login", "")
         manager = request.form.get("manager", "")
-        create_teacher(fullname, login, manager)
+        Teacher.create_teacher(fullname, login, manager)
         flash("Vytvořeno!!")
         return redirect(url_for("teacher"))
     else:
@@ -38,18 +39,11 @@ def type_grade():
     else:
         return render_template("type_grade.html")
 
-
-
-
-
-
 @app.route("/ucitele/")
-def pozdrav_ucitel():
-    return render_template("ucitele.html")
+def teachers():
+    list_of_teachers = Teacher.get_teachers()
+    return render_template("forms/list_of_teachers.html",teachers=list_of_teachers)
 
-@app.route('/ucitele/<name>/')
-def krasny_den(name):
-    return 'Krásný den ' + str(name)
 
 
 if __name__ == '__main__':
