@@ -6,9 +6,9 @@ from models import Teacher
 class TeacherManager:
     @staticmethod
     @db_session
-    def create_teacher(fname, lname, login):
-        fullname = f'{fname} {lname}'
-        t = Teacher(name=fullname, login=login)
+    def create_teacher(first_name, last_name, login, manager, **kwargs):
+        fullname = f'{first_name} {last_name}'
+        t = Teacher(name=fullname, login=login, manager=manager)
         return t
 
     @staticmethod

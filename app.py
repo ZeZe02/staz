@@ -19,12 +19,12 @@ def homepage():
 
 @app.route('/pridat-ucitel/', methods=['GET', 'POST'])
 def teacher():
+    t = TeacherManager.get_teacher(1)
     form = TeacherForm()
+
     if request.method == 'POST':
         if form.validate():
-            t = TeacherManager.create_teacher(form.data.get('first_name'),
-                                              form.data.get('last_name'),
-                                              form.data.get('login'))
+            t = TeacherManager.create_teacher(**form.data)
             flash('Vytvořeno !!')
             return redirect(url_for('teacher'))
         else:
