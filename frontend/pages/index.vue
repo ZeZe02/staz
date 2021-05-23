@@ -1,6 +1,10 @@
 <template>
   <div class="container-fluid jumbotron-fluid jumbo">
-    <Logo :abc="neco"/>
+    <!-- Pokud chci předat pouze hodnotu použiji abc="neco" v našem případě string "neco"
+    :abc by se použilo pokud bych chtěl poslat nejaký výraz/proměnou. Např. kdyby "neco" byla definována v data
+    : je vlastně jen zkratka pro v-bind:
+    -->
+    <Logo abc="neco"/>
     <div class="row">
         <div class="col-3 gx-2">
             <h1>miniSaurus</h1>
@@ -53,7 +57,7 @@ export default {
 
 <style>
 .jumbo {
-    background-color: lightgray;    
+    background-color: lightgray;
 }
 
 </style>
