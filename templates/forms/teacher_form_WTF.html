@@ -1,0 +1,20 @@
+
+<form class="needs-validation" novalidate method="POST" action=".">
+    {{ form.csrf_token }}
+    {{ form.name.label  }}  {{ form.name( size=30, class="form-control") }}     {% if form.errors.name  %} <div class="alert-danger">{{ form.errors.name.0  }}</div> {% endif %}
+    {{ form.login.label }}  {{ form.login(size=30, class="form-control") }}     {% if form.errors.login %} <div class="alert-danger">{{ form.errors.login.0 }}</div> {% endif %}
+    {{ form.manager.label }}  {{ form.manager(class="form-control") }}       {% if form.errors.manager %} <div class="alert-danger">{{ form.errors.manager.0 }}</div> {% endif %}
+    <input type="submit" value="Uložit" class="btn btn-primary">
+</form>
+
+{#
+<form method="POST" action="/ucitelWTF/">
+    {{ form.csrf_token }}
+    {{ form.name.label }}  {{ form.name(size=30, class="form-control") }}            {% if form.errors.name %} <div class="alert alert-danger">{{ form.errors.name.0 }}</div> {% endif %}
+    {{ form.login.label }}  {{ form.login(size=30, class="form-control") }}          <div class="alert alert-danger">{{ form.errors.login.0 if form.errors.login }}</div>
+    {{ form.password1.label }}  {{ form.password1(size=30, class="form-control") }}  <div class="alert alert-danger">{{ form.errors.password1.0 if form.errors.password1 }}</div>
+    {{ form.password2.label }}  {{ form.password2(size=30, class="form-control") }}  {{ form.errors.password2 }}
+    {{ form.manager.label }}  {{ form.manager() }}  {{ form.errors.manager }}
+    <input type="submit" value="Přidat" class="btn btn-primary">
+</form>
+#}

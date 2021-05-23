@@ -3,6 +3,8 @@ from pony.flask import Pony
 from pony.orm import commit, db_session
 #import models
 from models import *
+from managers import *
+from forms import *
 
 app = Flask(__name__)
 app.secret_key = "asfuogasdhkjfbvasdhjkcbvdasjhk,56789"
@@ -22,24 +24,6 @@ def index():
 
     return render_template("index.html",jmeno=jmeno,pracejednicky=pracejednicky)
 
-@app.route('/base/')
-def muj_base():
-    return render_template("base.html")
-    return 'Hello World!'
-
-#
-@app.route('/ucitele/')
-def ucitele():
-    return render_template("ucitele.html")
-    return 'Hello, teachers!'
-
-# uvedu-li jmeno (nebo casteji spis id) ucitele, jdu do teto routy, jinak jdu do te horni
-@app.route('/ucitele/<name>/')
-def ucitele_name(name):
-    return f'Hello, {name}!'
-
-
-
 
 @app.route("/ucitel/", methods = ["GET", "POST"])
 def ucitel():
@@ -49,12 +33,55 @@ def ucitel():
         prijm = request.form.get("lname")
         manager = request.form.get("manager")
         fullname = f"{jmeno} {prijm}"
-        t = create_teacher(login=login, name=fullname, manager=manager)
+        t = TeacherManager.create_teacher(login=login, name=fullname, manager=manager)
         flash(f"Úspěšně přidán učitel {fullname} manager={manager}")  # nachystá do zásobníku (v rámci cookies) tuto "hlášku" a šablona base si ji pak použije
         # v ramci requestu se da detekovat i mobil - request z mobilniho telefonu
         # dat sem breakpoint a pak inspekovat request
         return redirect(url_for("ucitel"))
-    return render_template("teacher.html")
+    return render_template("teacher-add.html")
+
+@app.route("/ucitelWTF/", methods = ["GET", "POST"])
+def teacher_add():
+    form = TeacherForm()
+    if request.method == "POST":
+        if form.validate():
+            t = TeacherManager.create_teacher(login=form.data.get("login"),
+                                              name=form.data.get("name"),
+                                              manager=form.data.get("manager"))
+            flash(f"Úspěšně přidán učitel {form.data.get('name')} manager={form.data.get('manager')}")  # nachystá do zásobníku (v rámci cookies) tuto "hlášku" a šablona base si ji pak použije
+            return redirect(url_for("teacher_add"))
+        else:
+            flash("Chyba při přidání učitele!")
+    return render_template("teacher-add-WTF.html", form=form)
+
+@app.route('/ucitel-smazat/<id>/')
+def teacher_del(id):
+    tm = TeacherManager.delete_teacher(id)
+    flash(f"Učitel smazán")
+    return redirect(url_for("teachers"))
+
+@app.route('/ucitele/<id>/', methods = ["GET", "POST"])
+def teacher_edit(id):
+    if request.method == "POST":
+        form = TeacherForm()
+        if form.validate():
+            tm = TeacherManager.update_teacher(TeacherManager.get_teacher(id),
+                                               login=form.data.get("login"),
+                                               name=form.data.get("name"),
+                                               manager=form.data.get("manager"))
+            flash(f"Změny úspěšně uloženy")
+            return redirect(url_for("teachers"))
+        flash("Chybně vyplněný formulář, změny neuloženy!")
+    else:
+        t = TeacherManager.get_teacher(id)
+        form = TeacherForm(login=t.login, name=t.name, manager=t.manager)
+    return render_template("teacher-edit.html", form=form)
+
+@app.route('/ucitele/')
+def teachers():
+    teachers_list = TeacherManager.get_teachers()
+    return render_template("teachers-list.html", teachers = teachers_list)
+
 
 if __name__ == '__main__':
     app.run()

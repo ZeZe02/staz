@@ -1,5 +1,5 @@
 from datetime import datetime
-from pony.orm import PrimaryKey, Required, Optional, Database, Set, db_session
+from pony.orm import PrimaryKey, Required, Optional, Database, Set
 
 db = Database()
 db.bind(provider="sqlite", filename="./database.sqlite", create_db=True)
@@ -13,11 +13,6 @@ class Teacher(db.Entity):
     manager = Optional(bool)
 
 
-#místo této jedné funkce se dělá třída Teacher_manager, která tuto a podobné funkce zapouzdřuje
-@db_session
-def create_teacher(login,name,manager):
-    t = Teacher(login=login,name=name,manager=manager)
-    return t
 
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)

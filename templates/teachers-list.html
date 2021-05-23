@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+
+{% block title %} Správa učitelů {% endblock %}
+
+
+{% block content %}
+<h3 class="page-header"><i class="fa fa-database"></i> Správa učitelů</h3>
+
+<div class="row">
+  <div class="col-sm-2">
+
+    <a href="{{ url_for("teacher_add") }}" alt="Nový" title="Nový">
+    <i class="icon_plus_alt2"></i> Nový učitel
+    </a>
+  </div>
+</div>
+    <br>
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Login</th>
+          <th scope="col">Jméno</th>
+          <th scope="col">Manager</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for t in teachers %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ t.login }}</td>
+          <td>{{ t.name }}</td>
+          <td>{{ "Ano" if t.manager else "---" }}</td>
+          <td nowrap align="center">
+              <a class="link_delete_teacher" href="{{ url_for("teacher_del", id=t.id) }}" alt="Smazat" title="Smazat">
+                <i class="icon_trash"></i> Smazat
+              </a> &nbsp; | &nbsp;
+              <a href="{{ t.id }}" alt="Změnit" title="Změnit">
+                <i class="icon_pencil-edit"></i> Změnit
+              </a>
+          </td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+    jQuery(".link_delete_teacher").on("click", function(e) {
+        var link = this;
+
+        e.preventDefault();     // aby se nepouzivala defaultni metoda pro obsluhu clicku
+        // e.stopPropagation()  // aby se ta udalost obslouzila jen na tomto elementu a ne (i) na nadrazenych elementech
+
+        $("<div>Opravdu smazat?</div>").dialog({
+            buttons: {
+                "Ano": function() {
+                    window.location = link.href;
+                },
+                "Ne": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
