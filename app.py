@@ -46,8 +46,14 @@ def teacher():
 
     return render_template('teacher.html', form=form)
 
+@app.route('/ucitel-smazat/<id>/')
+def teacher_del(id):
+    Teacher.delete_teacher(id)
+    flash(f"Učitel smazán")
+    return redirect(url_for("teachers"))
+
 @app.route("/znamky/", methods=["GET", "POST"])
-def grade():
+def type_grade():
     form = GradeForm()
     if request.method == "POST":
         if form.validate():
@@ -55,7 +61,7 @@ def grade():
             order = form.data.get("order", "")
             Type_grade.create_type_grade(name, order)
             flash("Vytvořeno !!")
-            return redirect(url_for("znamky"))
+            return redirect(url_for("type_grade"))
         else:
             flash("Nevytvořeno")
     return render_template("type_grade.html", form=form)

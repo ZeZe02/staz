@@ -23,6 +23,12 @@ class Teacher(db.Entity):
     def get_teachers():
         return list(select(teacher for teacher in Teacher))
 
+    @staticmethod
+    @db_session
+    def delete_teacher(id_teacher):
+        return Teacher.get(id=id_teacher).delete()
+
+
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)               #required = povinné

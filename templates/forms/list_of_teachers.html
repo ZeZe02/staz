@@ -19,7 +19,13 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ t.login }}</td>
                         <td>{{ t.name }}</td>
-                        <td>{{ t.manager }}</td>
+                        <td>{{ "Ano" if t.manager else "---" }}</td>
+                        <td><a class="link_delete_teacher" href="{{ url_for("teacher_del", id=t.id) }}" alt="Smazat" title="Smazat">
+                            <i class="icon_trash_alt"></i>
+                            </a></td>
+                        <td><a id="delete_teacher" class="">
+                            <i class="icon_pencil-edit_alt"></i>
+                        </a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
