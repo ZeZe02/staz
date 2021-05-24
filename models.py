@@ -13,6 +13,7 @@ class Teacher(db.Entity):
     name = Optional(str)
     manager = Optional(bool)
 
+    @staticmethod
     @db_session
     def create_teacher(name, login, manager):
         t = Teacher(name=name, login=login, manager=manager)
@@ -67,10 +68,11 @@ class Type_grade(db.Entity):
     project_criterion_grades = Set("Project_criterion_grade")
     projects = Set(Project)
 
-@db_session
-def create_type_grade(name, order):
-    tg = Type_grade(name=name, order=order)
-    return tg
+    @staticmethod
+    @db_session
+    def create_type_grade(name, order):
+        tg = Type_grade(name=name, order=order)
+        return tg
 
 class Type_difficulty(db.Entity):
     id = PrimaryKey(int, auto=True)

@@ -3,6 +3,7 @@ from pony.flask import Pony
 
 from models import *
 from forms import TeacherForm
+from forms import GradeForm
 
 app = Flask(__name__)
 app.secret_key = "safafafaijwdugwzrhofbweuhfkbewbowfv"
@@ -34,10 +35,10 @@ def teacher():
         if form.validate():
             fname = form.data.get("fname", "")
             lname = form.data.get("lname", "")
-            fullname = f"{fname} {lname}"
+            name = f"{fname} {lname}"
             login = form.data.get("login", "")
             manager = form.data.get("manager", "")
-            Teacher.create_teacher(fullname, login, manager)
+            Teacher.create_teacher(name, login, manager)
             flash('Vytvořeno !!')
             return redirect(url_for('teacher'))
         else:
@@ -45,16 +46,30 @@ def teacher():
 
     return render_template('teacher.html', form=form)
 
-@app.route("/znamka/", methods=["GET","POST"])
-def type_grade():
+@app.route("/znamky/", methods=["GET", "POST"])
+def grade():
+    form = GradeForm()
     if request.method == "POST":
-        name = request.form.get("name", "")
-        order = request.form.get("order", 0)
-        create_type_grade(name, order)
-        flash("Vytvořeno!!")
-        return redirect(url_for("type_grade"))
-    else:
-        return render_template("type_grade.html")
+        if form.validate():
+            name = form.data.get("name", "")
+            order = form.data.get("order", "")
+            Type_grade.create_type_grade(name, order)
+            flash("Vytvořeno !!")
+            return redirect(url_for("znamky"))
+        else:
+            flash("Nevytvořeno")
+    return render_template("type_grade.html", form=form)
+
+# @app.route("/znamka/", methods=["GET","POST"])
+# def type_grade():
+#     if request.method == "POST":
+#         name = request.form.get("name", "")
+#         order = request.form.get("order", 0)
+#         create_type_grade(name, order)
+#         flash("Vytvořeno!!")
+#         return redirect(url_for("type_grade"))
+#     else:
+#         return render_template("type_grade.html")
 
 @app.route("/ucitele/")
 def teachers():

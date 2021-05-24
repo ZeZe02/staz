@@ -1,0 +1,9 @@
+<form method="POST" action="/znamky/">
+    {{ form.csrf_token }}
+
+    {{ form.name.label }} {{ form.name(size=20, class='form-control') }}
+    {{ form.errors.name }}
+    {{ form.order.label }} {{ form.order(size=20, class='form-control') }}
+    {{ form.errors.order }}
+    <input type="submit" class="btn btn-primary" value="Uložit">
+</form>

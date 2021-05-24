@@ -10,7 +10,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Login</th>
                     <th scope="col">Jméno</th>
-                    <th scope="col"></th>
+                    <th scope="col">Manager</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,7 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ t.login }}</td>
                         <td>{{ t.name }}</td>
-                        <td></td>
+                        <td>{{ t.manager }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
