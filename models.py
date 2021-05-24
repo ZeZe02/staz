@@ -49,6 +49,11 @@ class Project(db.Entity):
     anotation = Optional(str)
     type_state = Required("Type_state")
 
+    @staticmethod
+    @db_session
+    def create_project(name, supervisor):
+        p = Project(name=name, supervisor=supervisor)
+        return p
 
 class Student(db.Entity):
     id = PrimaryKey(int, auto=True)

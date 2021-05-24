@@ -4,6 +4,7 @@ from pony.flask import Pony
 from models import *
 from forms import TeacherForm
 from forms import GradeForm
+from forms import ProjectForm
 
 app = Flask(__name__)
 app.secret_key = "safafafaijwdugwzrhofbweuhfkbewbowfv"
@@ -65,6 +66,21 @@ def type_grade():
         else:
             flash("Nevytvořeno")
     return render_template("type_grade.html", form=form)
+
+@app.route("/prace/", methods=["GET", "POST"])
+def project():
+    form = ProjectForm
+    if request.method == "POST":
+        if form.validate():
+            name = form.data.get("name", "")
+            supervisor = form.data.get("supervisor","")
+            Project.create_project(name, supervisor)
+            flash("Vytvořeno !!")
+            return redirect(url_for("prace"))
+        else:
+            flash("Nevytvořeno")
+    return render_template("prace.html", form=form)
+
 
 # @app.route("/znamka/", methods=["GET","POST"])
 # def type_grade():

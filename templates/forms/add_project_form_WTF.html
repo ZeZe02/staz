@@ -1,0 +1,10 @@
+<form method="POST" action="/prace/">
+    {{ form.csrf_token }}
+
+    {{ form.name.label }} {{ form.name(size=20, class='form-control') }}
+    {{ form.errors.name }}
+    {{ form.supervisor.label }} {{ form.supervisor(size=20, class='form-control') }}
+    {{ form.errors.supervisor }}
+    <br>
+    <input type="submit" class="btn btn-primary" value="Uložit">
+</form>
