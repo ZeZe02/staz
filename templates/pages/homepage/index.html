@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="row">
-        <button id="button_1">Odesli</button>
+        <button data-muj-ucitel="50" id="button_1">Odesli</button>
     </div>
 
     <script>
@@ -15,7 +15,6 @@
                     url: "/ajax-test/",
                     data: {
                         id: 1,
-
                     },
                     success: function (result) {
                         console.log(result);
@@ -26,7 +25,6 @@
                 });
             })
         })
-
     </script>
 
 {% endblock %}
