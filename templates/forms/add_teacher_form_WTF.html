@@ -1,5 +1,5 @@
 {% from "forms/base_field.html" import render_field %}
-<form method="POST" action="/pridat-ucitel/">
+<form class="form" method="POST" action="/pridat-ucitel/">
     {{ render_field(form.first_name) }}
     {{ render_field(form.last_name) }}
     {{ render_field(form.login) }}
