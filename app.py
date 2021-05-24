@@ -1,5 +1,6 @@
+from imaplib import Response_code
 
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, Response
 from pony.flask import Pony
 from pony.orm import commit, db_session, select
 
@@ -15,6 +16,14 @@ Pony(app)
 @app.route('/')
 def homepage():
     return render_template('pages/homepage/index.html')
+
+
+@app.route('/ajax-test/', methods=['POST'])
+def ajax_test():
+    response = Response()
+    response.set_data('')
+    response.status=500
+    return response
 
 
 @app.route('/pridat-ucitel/', methods=['GET', 'POST'])
