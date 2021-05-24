@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, flash
+from flask import Flask, render_template, request, url_for, redirect, flash, Response
 from pony.flask import Pony
 from pony.orm import commit, db_session
 #import models
@@ -60,15 +60,29 @@ def teacher_del(id):
     flash(f"Učitel smazán")
     return redirect(url_for("teachers"))
 
+@app.route('/ajax-teacher-delete/', methods=["POST"])
+def teacher_del1():
+    id = request.form.get("id")
+    response = Response()
+    response.set_data('')
+    if id:
+        tm = TeacherManager.delete_teacher(id)
+        flash(f"Učitel smazán")  # tohle nefunguje pres AJAX
+        response.status=200
+        return response
+    response.status=500
+    return response
+
 @app.route('/ucitele/<id>/', methods = ["GET", "POST"])
 def teacher_edit(id):
     if request.method == "POST":
         form = TeacherForm()
         if form.validate():
-            tm = TeacherManager.update_teacher(TeacherManager.get_teacher(id),
-                                               login=form.data.get("login"),
-                                               name=form.data.get("name"),
-                                               manager=form.data.get("manager"))
+            tm = TeacherManager.update_teacher(TeacherManager.get_teacher(id), **form.data )   # pouzito **kwargs
+            #tm = TeacherManager.update_teacher(TeacherManager.get_teacher(id),
+            #                                   login=form.data.get("login"),
+            #                                   name=form.data.get("name"),
+            #                                   manager=form.data.get("manager"))
             flash(f"Změny úspěšně uloženy")
             return redirect(url_for("teachers"))
         flash("Chybně vyplněný formulář, změny neuloženy!")
@@ -81,6 +95,22 @@ def teacher_edit(id):
 def teachers():
     teachers_list = TeacherManager.get_teachers()
     return render_template("teachers-list.html", teachers = teachers_list)
+
+@app.route("/prace-nova/", methods = ["GET", "POST"])
+def project_add():
+    form = ProjectForm()
+    if request.method == "POST":
+        if form.validate():
+            """
+            t = TeacherManager.create_teacher(login=form.data.get("login"),
+                                              name=form.data.get("name"),
+                                              manager=form.data.get("manager"))
+            """
+            flash(f"Úspěšně přidána práce {form.data.get('name')}")
+            return redirect(url_for("project_add"))
+        else:
+            flash("Chyba při přidání práce!")
+    return render_template("project-add.html", form=form)
 
 
 if __name__ == '__main__':
