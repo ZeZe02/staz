@@ -19,8 +19,8 @@ def index():
     u = Teacher(name="Igor",login="igor")
     commit()  # asi zde není potřeba, protože ten dekorátor db_session zajistí, že celá tato funkce bude brána jako jedna transakce a commitne se automaticky na konci funkce
     """
-    jmeno = Teacher.get(id=1).name   # tohle ještě nezpůsobí SQL dotaz do DB, ale nachystá si to a až při použití té proměnné jmeno ten dotaz proběhne
-    pracejednicky = Teacher.get(id=1).projects
+    jmeno = "" #Teacher.get(id=1).name   # tohle ještě nezpůsobí SQL dotaz do DB, ale nachystá si to a až při použití té proměnné jmeno ten dotaz proběhne
+    pracejednicky = "" #Teacher.get(id=1).projects
 
     return render_template("index.html",jmeno=jmeno,pracejednicky=pracejednicky)
 
