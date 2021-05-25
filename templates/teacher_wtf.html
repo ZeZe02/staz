@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-2">
+        <form method="POST" action="/ucitel_wtf/">
+            {{ form.csrf_token }}
+            {{ form.fname.label }} {{ form.fname(size=30, class="form-control") }} {{ form.errors.fname }}
+            {{ form.sname.label }} {{ form.sname(size=30, class="form-control") }} {{ form.errors.sname }}
+            {{ form.login.label }} {{ form.login(size=30, class="form-control") }} {{ form.errors.login }}
+            {{ form.manager.label }} {{ form.manager }}
+            <button type="submit" class="btn btn-primary">Uložit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

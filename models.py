@@ -5,18 +5,12 @@ from pony.orm import PrimaryKey, Required, Optional, Database, Set, db_session
 db = Database()
 db.bind(provider="sqlite", filename="./database.sqlite", create_db=True)
 
-
 class Teacher(db.Entity):
     id = PrimaryKey(int, auto=True)
     projects = Set("Project")
     login = Optional(str)
     name = Optional(str)
     manager = Optional(bool)
-
-@db_session
-def create_teacher(name,login, manager):
-    t = Teacher(name=name, login=login, manager=manager)
-    return t
 
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -63,6 +57,10 @@ class Type_grade(db.Entity):
     project_criterion_grades = Set("Project_criterion_grade")
     projects = Set(Project)
 
+@db_session
+def create_grade(order,name):
+    t = Type_grade(order=order, name=name)
+    return t
 
 class Type_difficulty(db.Entity):
     id = PrimaryKey(int, auto=True)

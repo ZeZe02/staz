@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <h2>Seznam učitelů</h2>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Jméno</th>
+        <th>Login</th>
+        <th>Manažer</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for t in teachers %}
+      <tr>
+        <td >{{ loop.index }}</td>
+        <td>{{ t.name }}</td>
+        <td>{{ t.login }}</td>
+        <td>{{ t.manager }}</td>
+        <td>
+
+          <form method="post" action="/smazat_ucitele/" style="display: inline">
+            <input name="smazat" type="hidden" value="{{t.id}}">
+            <button name="btn_smazat" type="submit" class="btn">
+              <i class="icon_trash"></i>
+            </button>
+          </form>
+          <a href="{{ t.id }}"> <span class="icon_pencil-edit"></span></a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
