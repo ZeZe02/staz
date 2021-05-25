@@ -1,0 +1,11 @@
+
+// Default variable overrides
+$body-bg: #222;
+$body-color: #eee;
+$primary: coral;
+$secondary: lightcoral;
+$navbar-dark-color: white;
+
+// Required
+@import 'node_modules/bootstrap/scss/bootstrap';
+

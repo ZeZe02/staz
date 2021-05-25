@@ -1,48 +1,56 @@
 <template>
-  <div class="container-fluid jumbotron-fluid jumbo">
-    <Logo :abc="neco"/>
-    <div class="row">
-        <div class="col-3 gx-2">
-            <h1>miniSaurus</h1>
-            <p>nebuď mini, buď Saurus!</p>
-        </div>
-        <div class="col-9 gx-2">
-            <img src="~/static/img/minisaurus.jpg" class="img-fluid"/>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-9 gx-2">
-            <p> {{ a }} </p>
-            <p> {{ rendering }} </p>
-            <ul>
-              <li> <NuxtLink to="/">Home page</NuxtLink> </li>
-              <li> <NuxtLink to="/marek">Marek</NuxtLink> </li>
-            </ul>
-        </div>
-    </div>
-  </div>
+<div class="container-fluid">
+
+<h1>Home</h1>
+
+<p>Toto je obsah</p>
+<p>Toto je obsah</p>
+<p>Toto je obsah</p>
+<p>Toto je obsah</p>
+
+<p>Toto je  obsah </p>
+  
+</div>
 </template>
 
+<style>
+</style>
 
 <script>
+/*import axios from "axios";*/
+
 export default {
   head() {
     return {
-      title: "miniSaurus"
+      title: "miniSaurus",
     };
   },
 
   data() {
     return {
-        a :'ahoj'
+        a :'ahoj',
+        pozdrav: '',
     }
+  },
+  methods: {
+
+    async fetchStart() {
+        const data = await this.$axios.$get('/api/start.json')
+        console.log(data);
+        this.pozdrav = data.data;
+    },
+
   },
 
-  asyncData() {
-    return {
-      rendering: process.server ? 'server' : 'client'
-    }
-  },
+  mounted() {
+    /*axios.get('/api/start.json')*/
+    /*    .then(function (response) {*/
+    /*      // handle success*/
+    /*      console.log('ahoj');*/
+    /*      console.log(response);*/
+    /*    });*/
+  }, 
+
 
 };
 
@@ -51,9 +59,3 @@ export default {
 </script>
 
 
-<style>
-.jumbo {
-    background-color: lightgray;    
-}
-
-</style>

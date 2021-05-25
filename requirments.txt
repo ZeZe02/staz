@@ -1,2 +1,5 @@
 flask>=2.0.0
+flask-cors
 pony>=0.7.4
+livereload
+python-dotenv

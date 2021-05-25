@@ -14,7 +14,6 @@
       fill="#2F495E"
     />
   </svg>
-  Q{{ abc }}Q
 </span>
 </template>
 

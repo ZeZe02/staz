@@ -1,12 +1,42 @@
 <template>
   <div>
-    default layout start
+    <div class="container-fluid jumbotron-fluid jumbo">
+      <div class="row">
+        <div class="col-md-3 gx-2">
+          <h1>miniSaurus</h1>
+          <p>nebuď mini, buď Saurus!</p>
+          <p>a{{ start }}</p>
+          <b-navbar class="gx-2" type="dark" variant="primary">
+            <b-navbar-nav>
+              <b-nav tabs>
+                <b-nav-item to="/" exact-active-class="active">Home</b-nav-item>
+                <b-nav-item to="/marek" exact-active-class="active">Marek</b-nav-item>
+                <b-nav-item to="/lalala" exact-active-class="active">Lalala</b-nav-item>
+              </b-nav>
+            </b-navbar-nav>
+          </b-navbar>
+        </div>
+        <div class="col-md-9 gx-2">
+            <img src="~/static/img/minisaurus.jpg" class="img-fluid"/>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+    </div>
     <Nuxt />
-    default layout end
   </div>
 </template>
 
-<style>
+<style lang="scss">
+.nuxt-link-active {
+  font-weight: bold;
+}
+/* exact link will show the primary color for only the exact matching link */
+a.nuxt-link-exact-active {
+  color: #00c58e;
+}
+
+
 html {
   font-family:
     'Source Sans Pro',
@@ -62,3 +92,23 @@ html {
   background-color: #35495e;
 }
 </style>
+
+<script>
+import axios from 'axios'
+export default {
+
+  data() {
+    return {
+      start: 'ahoj',
+    }
+  },
+
+  async fetch() {
+    const start = await this.$axios.$get('/api/start.json')
+    this.start = start.data;
+  },
+
+};
+  
+</script>
+
