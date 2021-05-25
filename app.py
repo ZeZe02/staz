@@ -65,16 +65,18 @@ def type_grade():
             return redirect(url_for("type_grade"))
         else:
             flash("Nevytvořeno")
-    return render_template("type_grade.html", form=form)
+    return render_template("/type_grade.html", form=form)
 
 @app.route("/prace/", methods=["GET", "POST"])
 def project():
-    form = ProjectForm
+    form = ProjectForm()
     if request.method == "POST":
         if form.validate():
-            name = form.data.get("name", "")
-            supervisor = form.data.get("supervisor","")
-            Project.create_project(name, supervisor)
+            title = form.data.get("title", "")
+            supervisor = form.data.get("supervisor", "")
+            classroom = form.data.get("classroom", "")
+            type_state = form.data.get("type_state", "")
+            Project.create_project(title, supervisor, classroom, type_state)
             flash("Vytvořeno !!")
             return redirect(url_for("prace"))
         else:

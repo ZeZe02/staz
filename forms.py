@@ -14,5 +14,7 @@ class GradeForm(FlaskForm):
     order = StringField(label='Pořadí známky', validators=[DataRequired(), ])
 
 class ProjectForm(FlaskForm):
-    name = StringField(label="Název práce", validators=[DataRequired(), ])
+    title = StringField(label="Název práce", validators=[DataRequired(), ])
     supervisor = StringField(label="Vedoucí práce", validators=[DataRequired(), ])
+    classroom = StringField(label = "Třída", validators=[DataRequired(), ])
+    type_state = BooleanField(label="Volné")

@@ -51,8 +51,8 @@ class Project(db.Entity):
 
     @staticmethod
     @db_session
-    def create_project(name, supervisor):
-        p = Project(name=name, supervisor=supervisor)
+    def create_project(title, supervisor, classroom, type_state):
+        p = Project(title=title, supervisor=supervisor, classroom=classroom, type_state=type_state)
         return p
 
 class Student(db.Entity):

@@ -1,10 +1,13 @@
 <form method="POST" action="/prace/">
     {{ form.csrf_token }}
 
-    {{ form.name.label }} {{ form.name(size=20, class='form-control') }}
-    {{ form.errors.name }}
+    {{ form.title.label }} {{ form.title(size=20, class='form-control') }}
+    {{ form.errors.title }}
     {{ form.supervisor.label }} {{ form.supervisor(size=20, class='form-control') }}
     {{ form.errors.supervisor }}
+    {{ form.classroom.label}} {{ form.classroom(size=20, class="form-control") }}
+    {{ form.errors.classroom}}
+    {{ form.type_state.label }} {{ form.type_state(class='form-control') }}
     <br>
     <input type="submit" class="btn btn-primary" value="Uložit">
 </form>
