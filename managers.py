@@ -38,9 +38,40 @@ class TeacherManager:
 
 class StudentManager:
     @staticmethod
+    @db_session
+    def create_one(login,firstname,surname):
+        return Student(login=login,firstname=firstname,surname=surname)
+
+    @staticmethod
+    @db_session
+    def update_one(s,login,firstname,surname,classroom=None, **kwargs):
+        s.login=login
+        s.firstname=firstname
+        s.surname=surname
+        if classroom:
+            s.classroom=classroom
+        return s
+
+    @staticmethod
+    def get_one(id_item=None):
+        if id_item:
+            return Student.get(id=id_item)
+        return None
+
+    @staticmethod
+    def get_all():
+        return list(select(s for s in Student))
+
+    @staticmethod
+    @db_session
+    def delete(id):
+        return Student.get(id=id).delete()
+
+    @staticmethod
+    @db_session
     def choice_all_names():
-        return [("a","ahoj"),("c","cau")]
-        return list(select( tuple(s.id, f"{s.login} {s.firstname} {s.surname}") for s in Student))
+        #return [("a","ahoj"),("c","cau")]
+        return list(select( (s.id, f"{s.login} {s.firstname} {s.surname}") for s in Student))
 
 
 
