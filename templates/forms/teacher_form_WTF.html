@@ -1,11 +1,35 @@
-
-<form class="needs-validation" novalidate method="POST" action=".">
+{% from 'forms/form_macros.html' import form_field %}
+{#
+<form class="form form-validate form-horizontal" method="POST" action=".">
     {{ form.csrf_token }}
-    {{ form.name.label  }}  {{ form.name( size=30, class="form-control") }}     {% if form.errors.name  %} <div class="alert-danger">{{ form.errors.name.0  }}</div> {% endif %}
+    <div class="form-group">
+    <div class="form-group">{{ form.name.label(class="control-label col-lg-2")  }}  <div class="col-lg-10">{{ form.name( size=30, class="form-control") }}     {% if form.errors.name  %} <div class="alert-danger">{{ form.errors.name.0  }}</div> {% endif %}</div></div>
     {{ form.login.label }}  {{ form.login(size=30, class="form-control") }}     {% if form.errors.login %} <div class="alert-danger">{{ form.errors.login.0 }}</div> {% endif %}
     {{ form.manager.label }}  {{ form.manager(class="form-control") }}       {% if form.errors.manager %} <div class="alert-danger">{{ form.errors.manager.0 }}</div> {% endif %}
-    <input type="submit" value="Uložit" class="btn btn-primary">
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <button class="btn btn-primary" type="submit">Uložit</button>
+        <a href="{{ url_for("teachers") }}" class="btn btn-default">Storno</a>
+      </div>
+    </div>
+    </div>
 </form>
+ #}
+
+<form class="form form-validate form-horizontal" novalidate method="POST" action=".">
+    {{ form.csrf_token }}
+    {{ form_field(form.name,with_label=1) }}
+    {{ form_field(form.login,with_label=1) }}
+    {{ form_field(form.manager) }}
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <button class="btn btn-primary" type="submit">Uložit</button>
+        <a href="{{ url_for("teachers") }}" class="btn btn-default">Storno</a>
+      </div>
+    </div>
+</form>
+
+
 
 {#
 <form method="POST" action="/ucitelWTF/">

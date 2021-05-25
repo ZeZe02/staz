@@ -6,6 +6,34 @@
 {% block content %}
 <h3 class="page-header"><i class="fa fa-database"></i> Správa učitelů</h3>
 
+
+
+<script>
+jQuery(document).ready(function() {
+    jQuery("#button_1").click(function (e) {
+        e.preventDefault();
+        jQuery.ajax({
+            type: "POST",
+            url: "/ajax-teacher-delete/",
+            data: {
+                id: 1,
+
+            },
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+    })
+})
+</script>
+
+
+
+
+
 <div class="row">
   <div class="col-sm-2">
 
@@ -17,9 +45,9 @@
     <br>
 <div class="row">
   <div class="col-sm-6">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
-        <tr>
+        <tr class="warning">
           <th scope="col">#</th>
           <th scope="col">Login</th>
           <th scope="col">Jméno</th>
@@ -35,7 +63,14 @@
           <td>{{ t.name }}</td>
           <td>{{ "Ano" if t.manager else "---" }}</td>
           <td nowrap align="center">
-              <a class="link_delete_teacher" href="{{ url_for("teacher_del", id=t.id) }}" alt="Smazat" title="Smazat">
+{#            <form method="POST" class="link_delete_teacher" action="{{ url_for("teacher_del1") }}">
+                  <input type="hidden">
+              <button class="link_delete_teacher" alt="Smazat" title="Smazat">
+                <i class="icon_trash"></i> Smazat
+              </button>
+              </form> &nbsp; | &nbsp;
+#}
+              <a class="link_delete_teacher" data-teacher_id="{{ t.id }}" href="/" alt="Smazat" title="Smazat">
                 <i class="icon_trash"></i> Smazat
               </a> &nbsp; | &nbsp;
               <a href="{{ t.id }}" alt="Změnit" title="Změnit">
@@ -52,15 +87,36 @@
 
 <script>
     jQuery(".link_delete_teacher").on("click", function(e) {
-        var link = this;
+        var odkaz = jQuery(this);
 
         e.preventDefault();     // aby se nepouzivala defaultni metoda pro obsluhu clicku
         // e.stopPropagation()  // aby se ta udalost obslouzila jen na tomto elementu a ne (i) na nadrazenych elementech
 
-        $("<div>Opravdu smazat?</div>").dialog({
+        jQuery("<div>Opravdu smazat?</div>").dialog({
             buttons: {
                 "Ano": function() {
-                    window.location = link.href;
+                    //window.location = odkaz.href;
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "/ajax-teacher-delete/",
+                        data: {
+                            id: odkaz.attr("data-teacher_id")
+
+                        },
+                        success: function (result) {
+                            //console.log(result);
+                            //alert("smazano" + odkaz.href)  // v tuto chvili uz promenna odkaz neexistuje
+                            //odkaz.attr("data-teacher_id", 500)   // takto funguje attr() i jako setter
+                            window.location.reload()
+
+                        },
+                        error: function (result) {
+                            //alert("Chyba při mazání učitele.");
+                            //chybu nebudeme resit...
+                        }
+                    });
+
+                    $(this).dialog("close");
                 },
                 "Ne": function() {
                     $(this).dialog("close");
