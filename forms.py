@@ -18,7 +18,7 @@ class ProjectForm(FlaskForm):
     student      = SelectField(label="Jméno studenta", choices=StudentManager.choice_all_names() )
     class_exp    = StringField(label="Projekt pro třídu", validators=[DataRequired("Povinné vyplnění!"), ])
     school_year  = StringField(label="Školní rok", validators=[DataRequired("Povinné vyplnění!"), ])
-    date_to      = DateField(label="Termín odevzdání")
+    date_to      = DateField(label="Termín odevzdání", format="%d.%m.%Y")
 """
     classroom    = SelectField(label="Třída studenta", choices=ClassroomManager.choice_all_names() )
 

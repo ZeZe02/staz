@@ -48,36 +48,19 @@ class StudentManager:
 class ProjectManager:
     @staticmethod
     @db_session
-    def create_project(login,name,manager):
-        title = Required(str)
-        supervisor = Required(Teacher)
-        student = Optional("Student")
-        class_exp = Required(str)
-        school_year = Required(int)
-        date_to = Optional(datetime)
-        classroom = Required("Classroom")
-        grade_text = Optional(str)
-        grade_list = Set("Project_criterion_grade")
-        grade_final = Required("Type_grade")
-        url1 = Optional(str)
-        url2 = Optional(str)
-        file_pdf = Required("File", reverse="project")
-        file_attachment = Required("File", reverse="project_attachment")
-        tags = Set("Tag")
-        anotation = Optional(str)
-        type_state = Required("Type_state")
+    def create_project(title,supervisor,class_exp,school_year,type_state,**kwargs):
 
-        return Project(login=login,name=name,manager=manager)
+        return Project(title=title,supervisor=supervisor,class_exp=class_exp,school_year=school_year,type_state=type_state,**kwargs)
 
-    @staticmethod
-    def get_project(id_project=None):
-        if id_project:
-            return Teacher.get(id=id_teacher)
-        return None
-
-    @staticmethod
-    def get_projects():
-        return list(select(record for record in Project))
+    # @staticmethod
+    # def get_project(id_project=None):
+    #     if id_project:
+    #         return Teacher.get(id=id_teacher)
+    #     return None
+    #
+    # @staticmethod
+    # def get_projects():
+    #     return list(select(record for record in Project))
 
 
 
