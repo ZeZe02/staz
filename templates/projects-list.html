@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block title %} Seznam prací {% endblock %}
+
+
+{% block content %}
+<h3 class="page-header"><i class="fa fa-database"></i> Seznam prací </h3>
+
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="warning">
+          <th scope="col">#</th>
+          <th scope="col">Název</th>
+          <th scope="col">Vedoucí</th>
+          <th scope="col">Pro třídu</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Třída</th>
+          <th scope="col">Rok</th>
+          <th scope="col">Stav</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for p in projects %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ p.title }}</td>
+          <td>{{ p.supervisor }}</td>
+          <td>{{ p.class_exp }}</td>
+          <td>{{ p.student }}</td>
+          <td>{{ p.classroom }}</td>
+          <td>{{ p.school_year }}</td>
+          <td>{{ p.type_state }}</td>
+{#            <td nowrap align="center">#}
+{#              <a class="link_delete_teacher" data-teacher_id="{{ t.id }}" href="/" alt="Smazat" title="Smazat">#}
+{#                <i class="icon_trash"></i> Smazat#}
+{#              </a> &nbsp; | &nbsp;#}
+{#              <a href="{{ t.id }}" alt="Změnit" title="Změnit">#}
+{#                <i class="icon_pencil-edit"></i> Změnit#}
+{#              </a>#}
+{#         </td>#}
+
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from models import *
-from pony.orm import db_session, select, delete
+from pony.orm import db_session, select
 
 
 class TeacherManager:
@@ -79,19 +79,5 @@ class StudentManager:
 class ProjectManager:
     @staticmethod
     @db_session
-    def create_project(login,name,manager):
-        return Project(login=login,name=name,manager=manager)
-
-    @staticmethod
-    def get_project(id_project=None):
-        if id_project:
-            return Teacher.get(id=id_teacher)
-        return None
-
-    @staticmethod
-    def get_projects():
-        return list(select(record for record in Project))
-
-
-
-
+    def create_project(title,supervisor,class_exp,school_year,type_state,**kwargs):
+        return Project(title=title,supervisor=supervisor,class_exp=class_exp,school_year=school_year,type_state=type_state,**kwargs)
