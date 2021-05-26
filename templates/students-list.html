@@ -35,7 +35,7 @@
           <td>{{ t.login }}</td>
           <td>{{ t.firstname }}</td>
           <td>{{ t.surname }}</td>
-          <td>{{ t.classroom }}</td>
+          <td>{{ t.classroom if t.classroom else "---" }}</td>
           <td nowrap align="center">
               <a class="link_delete_student" data-student_id="{{ t.id }}" href="/" alt="Smazat" title="Smazat">
                 <i class="icon_trash"></i> Smazat
