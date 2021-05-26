@@ -39,8 +39,11 @@ class TeacherManager:
 class StudentManager:
     @staticmethod
     @db_session
-    def create_one(login,firstname,surname):
-        return Student(login=login,firstname=firstname,surname=surname)
+    def create_one(login,firstname,surname,classroom=None, **kwargs):
+        s = Student(login=login,firstname=firstname,surname=surname)
+        if classroom and int(classroom) >= 0:
+            s.classroom=classroom
+        return s
 
     @staticmethod
     @db_session
@@ -48,7 +51,7 @@ class StudentManager:
         s.login=login
         s.firstname=firstname
         s.surname=surname
-        if classroom:
+        if classroom and classroom >= 0:
             s.classroom=classroom
         return s
 
@@ -64,7 +67,7 @@ class StudentManager:
 
     @staticmethod
     @db_session
-    def delete(id):
+    def delete_one(id):
         return Student.get(id=id).delete()
 
     @staticmethod
@@ -81,3 +84,7 @@ class ProjectManager:
     @db_session
     def create_project(title,supervisor,class_exp,school_year,type_state,**kwargs):
         return Project(title=title,supervisor=supervisor,class_exp=class_exp,school_year=school_year,type_state=type_state,**kwargs)
+
+    @staticmethod
+    def get_all():
+        return list(select(item for item in Project))

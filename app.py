@@ -125,11 +125,11 @@ def student_add():
 
 @app.route('/ajax-student-delete/', methods=["POST"])
 def student_del():
-    id = request.form.get("id")
+    id1 = request.form.get("id")
     response = Response()
     response.set_data('')
-    if id:
-        tm = StudentManager.delete_one(id)
+    if id1:
+        tm = StudentManager.delete_one(id1)
         flash(f"Student smazán")
         response.status=200
         return response
@@ -172,6 +172,11 @@ def project_add():
         else:
             flash("Chyba při přidání práce!")
     return render_template("project-add.html", form=form)
+
+@app.route('/prace-seznam/')
+def projects():
+    projects_list = ProjectManager.get_all()
+    return render_template("projects-list.html", projects = projects_list)
 
 
 import login_route
