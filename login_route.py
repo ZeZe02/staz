@@ -58,14 +58,14 @@ def login():
                     classname = "XxX"
                 name = conn.entries[-1].cn.value
             classroom = Classroom.get(name=classname) or Classroom(name=classname)
-            if re.search(r"\w{3}\d{5}", login):
+            if re.search(r"^\.?\w{3}\d{5}$", login):
                 student = Student.get(login=login)
                 session["role"] = "student"
                 if student:
                     student.classroom = classroom
                 else:
                     student = Student(
-                        login=login, firstname=name, surname=" ", classroom=classroom
+                        login=login, firstname=name, surname=".", classroom=classroom
                     )
             else:
                 teacher = Teacher.get(login=login)
@@ -74,6 +74,7 @@ def login():
                     teacher = Teacher(login=login, name=name)
             conn.unbind()
             session["user"] = login
+            session["name"] = name
             flash("Právě jsi se přihlásil!")
             next_ = request.args.get("next")
             if next_:
@@ -91,5 +92,6 @@ def login():
 def logout():
     session.pop("user", None)
     session.pop("role", None)
+    session.pop("name", None)
     flash("Byl jsi odhlášen!")
     return redirect(url_for("login"))
