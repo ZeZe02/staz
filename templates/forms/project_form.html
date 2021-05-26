@@ -1,5 +1,13 @@
 {% from 'forms/form_macros.html' import form_field %}
 
+<script>
+jQuery( function() {
+    jQuery( "#date_to" ).datepicker({
+            dateFormat: "dd.mm.yy"
+        } );
+} );
+</script>
+
 <form class="form form-validate form-horizontal" novalidate method="POST" action=".">
     {{ form.csrf_token }}
 
@@ -9,6 +17,15 @@
     {{ form_field(form.class_exp,with_label=1) }}
     {{ form_field(form.school_year,with_label=1) }}
     {{ form_field(form.date_to,with_label=1) }}
+    {{ form_field(form.classroom,with_label=1) }}
+    {{ form_field(form.grade_text,with_label=1) }}
+    {{ form_field(form.grade_final,with_label=1) }}
+    {{ form_field(form.url1,with_label=1) }}
+    {{ form_field(form.url2,with_label=1) }}
+    {{ form_field(form.file_pdf,with_label=1) }}
+    {{ form_field(form.file_attachment,with_label=1) }}
+    {{ form_field(form.anotation,with_label=1) }}
+    {{ form_field(form.type_state,with_label=1) }}
 
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">

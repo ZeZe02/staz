@@ -11,9 +11,23 @@ app.secret_key = "asfuogasdhkjfbvasdhjkcbvdasjhk,56789"
 Pony(app)
 
 
+# ukazka definice vlastniho dekoratoru @calculate_time
+import time
+def calculate_time(func):
+    def inner1(*args, **kwargs):
+        begin = time.time()
+
+        result = func(*args, **kwargs)
+
+        end = time.time()
+        print("Total time taken in : ", func.name, end - begin)
+        return result
+
+    return inner1
 
 @db_session
 @app.route('/')
+#@calculate_time
 def index():
     """
     u = Teacher(name="Igor",login="igor")
@@ -67,7 +81,7 @@ def teacher_del1():
     response.set_data('')
     if id:
         tm = TeacherManager.delete_teacher(id)
-        flash(f"Učitel smazán")  # tohle nefunguje pres AJAX
+        flash(f"Učitel smazán")
         response.status=200
         return response
     response.status=500
@@ -95,6 +109,53 @@ def teacher_edit(id):
 def teachers():
     teachers_list = TeacherManager.get_teachers()
     return render_template("teachers-list.html", teachers = teachers_list)
+
+
+@app.route("/student-novy/", methods = ["GET", "POST"])
+def student_add():
+    form = StudentForm()
+    if request.method == "POST":
+        if form.validate():
+            t = StudentManager.create_one( **form.data )
+            flash(f"Úspěšně přidán student {form.data.get('login')}")
+            return redirect(url_for("student_add"))
+        else:
+            flash("Chyba při přidání studenta!")
+    return render_template("student-add.html", form=form)
+
+@app.route('/ajax-student-delete/', methods=["POST"])
+def student_del():
+    id = request.form.get("id")
+    response = Response()
+    response.set_data('')
+    if id:
+        tm = StudentManager.delete_one(id)
+        flash(f"Student smazán")
+        response.status=200
+        return response
+    response.status=500
+    return response
+
+@app.route('/studenti/<id>/', methods = ["GET", "POST"])
+def student_edit(id):
+    if request.method == "POST":
+        form = StudentForm()
+        if form.validate():
+            tm = StudentManager.update_one(StudentManager.get_one(id), **form.data )
+            flash(f"Změny úspěšně uloženy")
+            return redirect(url_for("students"))
+        flash("Chybně vyplněný formulář, změny neuloženy!")
+    else:
+        t = StudentManager.get_one(id)
+        form = StudentForm(login=t.login, name=t.name, manager=t.manager)
+    return render_template("student-edit.html", form=form)
+
+@app.route('/studenti/')
+def students():
+    students_list = StudentManager.get_all()
+    return render_template("students-list.html", students = students_list)
+
+
 
 @app.route("/prace-nova/", methods = ["GET", "POST"])
 def project_add():

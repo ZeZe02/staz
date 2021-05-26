@@ -1,5 +1,5 @@
 from models import *
-from pony.orm import db_session, select, delete
+from pony.orm import db_session, select
 
 
 class TeacherManager:
@@ -38,9 +38,40 @@ class TeacherManager:
 
 class StudentManager:
     @staticmethod
+    @db_session
+    def create_one(login,firstname,surname):
+        return Student(login=login,firstname=firstname,surname=surname)
+
+    @staticmethod
+    @db_session
+    def update_one(s,login,firstname,surname,classroom=None, **kwargs):
+        s.login=login
+        s.firstname=firstname
+        s.surname=surname
+        if classroom:
+            s.classroom=classroom
+        return s
+
+    @staticmethod
+    def get_one(id_item=None):
+        if id_item:
+            return Student.get(id=id_item)
+        return None
+
+    @staticmethod
+    def get_all():
+        return list(select(s for s in Student))
+
+    @staticmethod
+    @db_session
+    def delete(id):
+        return Student.get(id=id).delete()
+
+    @staticmethod
+    @db_session
     def choice_all_names():
-        return [("a","ahoj"),("c","cau")]
-        return list(select( tuple(s.id, f"{s.login} {s.firstname} {s.surname}") for s in Student))
+        #return [("a","ahoj"),("c","cau")]
+        return list(select( (s.id, f"{s.login} {s.firstname} {s.surname}") for s in Student))
 
 
 
@@ -48,37 +79,5 @@ class StudentManager:
 class ProjectManager:
     @staticmethod
     @db_session
-    def create_project(login,name,manager):
-        title = Required(str)
-        supervisor = Required(Teacher)
-        student = Optional("Student")
-        class_exp = Required(str)
-        school_year = Required(int)
-        date_to = Optional(datetime)
-        classroom = Required("Classroom")
-        grade_text = Optional(str)
-        grade_list = Set("Project_criterion_grade")
-        grade_final = Required("Type_grade")
-        url1 = Optional(str)
-        url2 = Optional(str)
-        file_pdf = Required("File", reverse="project")
-        file_attachment = Required("File", reverse="project_attachment")
-        tags = Set("Tag")
-        anotation = Optional(str)
-        type_state = Required("Type_state")
-
-        return Project(login=login,name=name,manager=manager)
-
-    @staticmethod
-    def get_project(id_project=None):
-        if id_project:
-            return Teacher.get(id=id_teacher)
-        return None
-
-    @staticmethod
-    def get_projects():
-        return list(select(record for record in Project))
-
-
-
-
+    def create_project(title,supervisor,class_exp,school_year,type_state,**kwargs):
+        return Project(title=title,supervisor=supervisor,class_exp=class_exp,school_year=school_year,type_state=type_state,**kwargs)

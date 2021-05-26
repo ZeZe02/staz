@@ -12,17 +12,15 @@ class Teacher(db.Entity):
     name = Optional(str)
     manager = Optional(bool)
 
-
-
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)
     supervisor = Required(Teacher)
     student = Optional("Student")
     class_exp = Required(str)
-    school_year = Required(int)
+    school_year = Optional(int)
     date_to = Optional(datetime)
-    classroom = Required("Classroom")
+    classroom = Optional("Classroom")
     grade_text = Optional(str)
     grade_list = Set("Project_criterion_grade")
     grade_final = Required("Type_grade")
