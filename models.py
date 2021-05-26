@@ -5,8 +5,14 @@ db = Database()
 db.bind(provider="sqlite", filename="./database.sqlite", create_db=True)
 
 
-class Teacher(db.Entity):
-    id = PrimaryKey(int, auto=True)
+class MetadataBaseModelMixin:
+    x_created = Required(datetime, sql_default='Now')
+    x_created_username = Required(str)
+    x_modified = Optional(datetime, sql_default=None)
+    x_modified_username = Optional(str)
+
+
+class Teacher(db.Entity, MetadataBaseModelMixin):
     projects = Set("Project")
     login = Optional(str)
     name = Optional(str)
@@ -14,7 +20,6 @@ class Teacher(db.Entity):
 
 
 class Project(db.Entity):
-    id = PrimaryKey(int, auto=True)
     title = Required(str)
     supervisor = Required(Teacher)
     student = Optional("Student")

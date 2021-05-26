@@ -1,10 +1,10 @@
-from imaplib import Response_code
 
 from flask import Flask, render_template, request, flash, redirect, url_for, Response
 from pony.flask import Pony
 from pony.orm import commit, db_session, select
 
 import models
+from decorators import calculate_time
 from forms import TeacherForm
 from managers import TeacherManager
 
@@ -14,7 +14,9 @@ Pony(app)
 
 
 @app.route('/')
+@calculate_time
 def homepage():
+    teacher = models.Teacher()
     return render_template('pages/homepage/index.html')
 
 
@@ -29,6 +31,7 @@ def ajax_test():
 @app.route('/pridat-ucitel/', methods=['GET', 'POST'])
 def teacher():
     t = TeacherManager.get_teacher(1)
+
     form = TeacherForm()
 
     if request.method == 'POST':

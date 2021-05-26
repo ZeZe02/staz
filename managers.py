@@ -1,5 +1,6 @@
 from pony.orm import db_session, select
 
+from decorators import calculate_time
 from models import Teacher
 
 
@@ -12,9 +13,10 @@ class TeacherManager:
         return t
 
     @staticmethod
-    def get_teacher(teacher_id):
+    def get_teacher(teacher_id) -> Teacher:
         return Teacher.get(id=teacher_id)
 
     @staticmethod
+    @calculate_time
     def get_all_teachers():
         return list(select(teacher for teacher in Teacher))
