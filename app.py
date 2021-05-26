@@ -11,9 +11,23 @@ app.secret_key = "asfuogasdhkjfbvasdhjkcbvdasjhk,56789"
 Pony(app)
 
 
+# ukazka definice vlastniho dekoratoru @calculate_time
+import time
+def calculate_time(func):
+    def inner1(*args, **kwargs):
+        begin = time.time()
+
+        result = func(*args, **kwargs)
+
+        end = time.time()
+        print("Total time taken in : ", func.name, end - begin)
+        return result
+
+    return inner1
 
 @db_session
 @app.route('/')
+#@calculate_time
 def index():
     """
     u = Teacher(name="Igor",login="igor")

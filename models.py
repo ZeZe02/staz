@@ -12,8 +12,6 @@ class Teacher(db.Entity):
     name = Optional(str)
     manager = Optional(bool)
 
-
-
 class Project(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)
